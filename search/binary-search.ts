@@ -1,7 +1,9 @@
+import { ComparisonFunction } from "../types";
+
 export default function binarySearch<T>(
   sortedList: T[],
   searchValue: T,
-  compare: (a: T, b: T) => -1 | 0 | 1
+  compare: ComparisonFunction<T>
 ): number | null {
   let low = 0;
   let high = sortedList.length - 1;
@@ -11,16 +13,13 @@ export default function binarySearch<T>(
     const candidateValue = sortedList[index];
     const result = compare(searchValue, candidateValue);
     switch (result) {
-      case -1:
-        // searchValue < candidateValue
+      case "<":
         high = index - 1;
         break;
-      case 1:
-        // searchValue > candidateValue
+      case ">":
         low = index + 1;
         break;
-      case 0:
-        // searchValue = candidateValue
+      case "===":
         return index;
     }
   }
