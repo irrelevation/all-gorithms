@@ -1,27 +1,20 @@
-import { ComparisonFunction } from "../types";
-
-function selectionSort<T>(array: T[], compare: ComparisonFunction<T>): T[] {
+function selectionSort<T>(array: T[]): T[] {
   const result: T[] = [];
   while (array.length > 0) {
-    let smallest_index = 0;
-    let smallest = array[0];
+    let smallestCandidateIndex = 0;
+    let smallestCandidate = array[0];
     for (let i = 1; i < array.length; i++) {
-      if (compare(array[i], smallest) === "<") {
-        smallest_index = i;
-        smallest = array[i];
+      if (array[i] < smallestCandidate) {
+        smallestCandidateIndex = i;
+        smallestCandidate = array[i];
       }
     }
-    result.push(...array.splice(smallest_index, 1));
+    result.push(...array.splice(smallestCandidateIndex, 1));
   }
 
   return result;
 }
 
 let numbers = [32, 1, 6, 9, 2, 58, 2, 3];
-let comp: ComparisonFunction<number> = (a, b) => {
-  if (a < b) return "<";
-  else if (a === b) return "===";
-  else return ">";
-};
 
-console.log(selectionSort(numbers, comp));
+console.log(selectionSort(numbers));
