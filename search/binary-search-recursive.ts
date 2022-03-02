@@ -1,29 +1,23 @@
-import { ComparisonFunction } from "../types";
-
-function binarySearchRecursive<T>(
-  sortedList: T[],
-  searchValue: T,
-  compare: ComparisonFunction<T>
-): number {
+function binarySearchRecursive<T>(sortedList: T[], searchValue: T): number {
   if (sortedList.length === 0) return -1;
-  const low = 0;
-  const high = sortedList.length;
-  const index = low + Math.floor((high - low) / 2);
-  const candidate = sortedList[index];
-  const comparison = compare(searchValue, candidate);
-  if (comparison === "===") return index;
-  else if (comparison === "<")
+
+  const lowerBound = 0;
+  const upperBound = sortedList.length;
+  const candidateIndex = lowerBound + Math.floor((upperBound - lowerBound) / 2);
+  const candidate = sortedList[candidateIndex];
+
+  if (searchValue === candidate) {
+    return candidateIndex;
+  } else if (searchValue < candidate) {
     return binarySearchRecursive(
-      sortedList.slice(0, index),
-      searchValue,
-      compare
+      sortedList.slice(0, candidateIndex),
+      searchValue
     );
-  else {
+  } else {
     const result = binarySearchRecursive(
-      sortedList.slice(index + 1, high),
-      searchValue,
-      compare
+      sortedList.slice(candidateIndex + 1, upperBound),
+      searchValue
     );
-    return result === -1 ? -1 : result + index + 1;
+    return result === -1 ? -1 : result + candidateIndex + 1;
   }
 }
