@@ -33,6 +33,10 @@ export class Subarray<T> {
     }
   }
 
+  toString() {
+    return JSON.stringify(this.#array.slice(this.#from, this.#to));
+  }
+
   #isInRange(index: number) {
     return index >= 0 && index <= this.length;
   }
