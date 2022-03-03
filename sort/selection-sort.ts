@@ -14,7 +14,3 @@ function selectionSort<T>(array: T[]): T[] {
 
   return result;
 }
-
-let numbers = [32, 1, 6, 9, 2, 58, 2, 3];
-
-console.log(selectionSort(numbers));
