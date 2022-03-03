@@ -1,5 +1,5 @@
 export class Subarray<T> {
-  #array: T[];
+  array: T[];
   #from: number;
   #to: number;
 
@@ -17,11 +17,11 @@ export class Subarray<T> {
       );
 
     if (array instanceof Subarray) {
-      this.#array = array.#array;
+      this.array = array.array;
       this.#from = array.#from + from;
       this.#to = array.#from + to;
     } else {
-      this.#array = array;
+      this.array = array;
       this.#from = from;
       this.#to = to;
     }
@@ -29,12 +29,12 @@ export class Subarray<T> {
 
   *[Symbol.iterator]() {
     for (let index = this.#from; index < this.#to; index++) {
-      yield this.#array[index];
+      yield this.array[index];
     }
   }
 
   toString() {
-    return JSON.stringify(this.#array.slice(this.#from, this.#to));
+    return JSON.stringify(this.array.slice(this.#from, this.#to));
   }
 
   #isInRange(index: number) {
@@ -50,7 +50,7 @@ export class Subarray<T> {
       throw new Error(
         `Index out of range: expected int between 0 and ${this.length} but got ${index}`
       );
-    return this.#array[index + this.#from];
+    return this.array[index + this.#from];
   }
 
   set(index: number, value: T) {
@@ -58,7 +58,7 @@ export class Subarray<T> {
       throw new Error(
         `Index out of range: expected int between 0 and ${this.length} but got ${index}`
       );
-    this.#array[index + this.#from] = value;
+    this.array[index + this.#from] = value;
   }
 
   swap(i: number, j: number) {
@@ -67,5 +67,9 @@ export class Subarray<T> {
     const temp = this.get(i);
     this.set(i, this.get(j));
     this.set(j, temp);
+  }
+
+  asArray() {
+    return this.array.slice(this.#from, this.#to);
   }
 }
