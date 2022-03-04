@@ -52,7 +52,7 @@ const partition = <T>(subArray: Subarray<T>, pivotIndex?: number) => {
 export const quickSortInPlace = <T>(array: T[] | Subarray<T>) => {
   if (array.length <= 1) return;
   if (Array.isArray(array)) array = new Subarray(array);
-  const pivotIndex = partition(array, 0);
+  const pivotIndex = partition(array);
   const leftSubArray = new Subarray(array, 0, pivotIndex);
   const rightSubArray = new Subarray(array, pivotIndex + 1, array.length);
   quickSortInPlace(leftSubArray);
