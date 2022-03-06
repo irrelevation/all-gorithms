@@ -3,27 +3,36 @@ export class Subarray<T> {
   #from: number;
   #to: number;
 
-  constructor(array: T[] | Subarray<T>, from = 0, to = array.length) {
+  constructor(
+    arrayOrSubarray: T[] | Subarray<T>,
+    from = 0,
+    to = arrayOrSubarray.length
+  ) {
     // switch the bounds if they were entered in the wrong order
     if (to < from) [from, to] = [to, from];
 
     if (from < 0)
       throw new Error(
-        `Lower bound out of range: expected int between 0 and ${array.length} but got ${from}`
+        `Lower bound out of range: expected int between 0 and ${arrayOrSubarray.length} but got ${from}`
       );
-    if (to > array.length)
+    if (to > arrayOrSubarray.length)
       throw new Error(
-        `Upper bound out of range: expected int between 0 and ${array.length} but got ${to}`
+        `Upper bound out of range: expected int between 0 and ${arrayOrSubarray.length} but got ${to}`
       );
 
-    if (array instanceof Subarray) {
-      this.array = array.array;
-      this.#from = array.#from + from;
-      this.#to = array.#from + to;
-    } else {
-      this.array = array;
+    if (arrayOrSubarray instanceof Subarray) {
+      this.array = arrayOrSubarray.array;
+      this.#from = arrayOrSubarray.#from + from;
+      this.#to = arrayOrSubarray.#from + to;
+    } else if (Array.isArray(arrayOrSubarray)) {
+      this.array = arrayOrSubarray;
       this.#from = from;
       this.#to = to;
+    } else {
+      // exhaustiveness check
+      ((value: never) => {
+        throw new Error(`Can't create a Subarray from ${value}`);
+      })(arrayOrSubarray);
     }
   }
 
