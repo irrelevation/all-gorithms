@@ -1,4 +1,4 @@
-import { Subarray } from "../util/Subarray";
+import { Subarray } from "../data-structures/Subarray";
 
 // Partitions a sub-array in place, returning the index at which it is partitioned.
 // Every element to the left of that index is smaller, every element to the right of it bigger.
