@@ -16,50 +16,53 @@ describe("The constructor", () => {
   });
 });
 
-test("should return -1 if the index is invalid", () => {
-  linkedList.addAtTail(1);
-  expect(linkedList.get(10)).toBe(-1);
-  expect(linkedList.get(-2)).toBe(-1);
+describe("get(index)", () => {
+  test("should return -1 if the index is invalid", () => {
+    linkedList.addAtTail(1);
+    expect(linkedList.get(10)).toBe(-1);
+    expect(linkedList.get(-2)).toBe(-1);
+  });
+
+  test("can get the last value of a one node list", () => {
+    linkedList.addAtTail(7);
+    expect(linkedList.get(0)).toBe(7);
+  });
+
+  test("can get the last value of a two node list", () => {
+    linkedList.addAtTail(7);
+    linkedList.addAtTail(2);
+    expect(linkedList.get(1)).toBe(2);
+  });
+
+  test("can get the first value of a two node list", () => {
+    linkedList.addAtTail(7);
+    linkedList.addAtTail(2);
+    expect(linkedList.get(0)).toBe(7);
+  });
+  test("can get the ith value counting from the end of the list by passing a negative number", () => {
+    linkedList.addAtHead("b");
+    linkedList.addAtHead("a");
+    linkedList.addAtTail("c");
+
+    expect(linkedList.get(-1)).toBe("c");
+    expect(linkedList.get(-2)).toBe("b");
+    expect(linkedList.get(-3)).toBe("a");
+  });
 });
 
-test("can get the last value of a one node list", () => {
-  linkedList.addAtTail(7);
-  expect(linkedList.get(0)).toBe(7);
-});
+describe("addAtHead(value)", () => {
+  test("can add a value to the head of an empty list", () => {
+    linkedList.addAtHead(7);
+    expect(linkedList.get(0)).toBe(7);
+  });
 
-test("can get the last value of a two node list", () => {
-  linkedList.addAtTail(7);
-  linkedList.addAtTail(2);
-  expect(linkedList.get(1)).toBe(2);
-});
+  test("can add a value to the head of a one node list list", () => {
+    linkedList.addAtHead(7);
+    linkedList.addAtHead(3);
 
-test("can get the first value of a two node list", () => {
-  linkedList.addAtTail(7);
-  linkedList.addAtTail(2);
-  expect(linkedList.get(0)).toBe(7);
-});
-
-test("can add a value to the head of an empty list", () => {
-  linkedList.addAtHead(7);
-  expect(linkedList.get(0)).toBe(7);
-});
-
-test("can add a value to the head of a one node list list", () => {
-  linkedList.addAtHead(7);
-  linkedList.addAtHead(3);
-
-  expect(linkedList.get(0)).toBe(3);
-  expect(linkedList.get(1)).toBe(7);
-});
-
-test("can get the ith value counting from the end of the list by passing a negative number", () => {
-  linkedList.addAtHead("b");
-  linkedList.addAtHead("a");
-  linkedList.addAtTail("c");
-
-  expect(linkedList.get(-1)).toBe("c");
-  expect(linkedList.get(-2)).toBe("b");
-  expect(linkedList.get(-3)).toBe("a");
+    expect(linkedList.get(0)).toBe(3);
+    expect(linkedList.get(1)).toBe(7);
+  });
 });
 
 describe("addAtIndex(index, value)", () => {
