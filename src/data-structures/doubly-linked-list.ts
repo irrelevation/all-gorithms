@@ -92,6 +92,14 @@ export default class DoublyLinkedList<T> {
     this.length--;
   }
 
+  *[Symbol.iterator]() {
+    let node = this.head;
+    while (node) {
+      yield node.val;
+      node = node.next;
+    }
+  }
+
   private isValidIndex(index: number) {
     return index < this.length && index * -1 <= this.length;
   }

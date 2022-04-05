@@ -125,3 +125,9 @@ describe("deleteAtIndex(index)", () => {
     expect(linkedList).toEqual(expectedList);
   });
 });
+
+test("should be iterable", () => {
+  let myArray = ["a", "b", "c"];
+  linkedList = new DoublyLinkedList(["a", "b", "c"]);
+  expect([...linkedList]).toEqual(myArray);
+});
