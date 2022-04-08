@@ -28,7 +28,7 @@ describe("The has(value) method", () => {
   });
   test("should return false if the last instance of a value has been deleted", () => {
     countedSet.add("A");
-    countedSet.delete("A");
+    countedSet.decrement("A");
     expect(countedSet.has("A")).toBe(false);
   });
 });
@@ -52,23 +52,23 @@ describe("The setCount(value, count) method", () => {
   });
 });
 
-describe("The delete(value) method", () => {
+describe("The decrement(value) method", () => {
   test("should decrease the count of a value by 1", () => {
     countedSet.add("A");
     countedSet.add("A");
     expect(countedSet.getCount("A")).toBe(2);
-    countedSet.delete("A");
+    countedSet.decrement("A");
     expect(countedSet.getCount("A")).toBe(1);
-    countedSet.delete("A");
+    countedSet.decrement("A");
     expect(countedSet.getCount("A")).toBe(0);
   });
 
   test("should do nothing if the value is not in the set or it's count is 0", () => {
-    countedSet.delete("A");
+    countedSet.decrement("A");
     expect(countedSet.getCount("A")).toBe(0);
     countedSet.add("B");
-    countedSet.delete("B");
-    countedSet.delete("B");
+    countedSet.decrement("B");
+    countedSet.decrement("B");
     expect(countedSet.getCount("B")).toBe(0);
   });
 });
@@ -81,7 +81,7 @@ describe("The size property", () => {
   test("should be 0 when the set is empty", () => {
     expect(countedSet.size).toBe(0);
     countedSet.add("A");
-    countedSet.delete("A");
+    countedSet.decrement("A");
     expect(countedSet.size).toBe(0);
   });
 
@@ -100,7 +100,7 @@ describe("The size property", () => {
   });
 
   test("should not decrease if we delete a value that is not in the set", () => {
-    countedSet.delete("A");
+    countedSet.decrement("A");
     expect(countedSet.size).toBe(0);
   });
 });

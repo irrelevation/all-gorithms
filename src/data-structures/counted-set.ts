@@ -22,7 +22,7 @@ export class CountedSet<T> {
   setCount(value: T, count: number): void {
     this.map.set(value, count);
   }
-  delete(value: T) {
+  decrement(value: T) {
     if (!this.has(value)) return;
     let newCount = this.getCount(value) - 1;
     if (newCount === 0) {
