@@ -73,6 +73,15 @@ describe("The decrement(value) method", () => {
   });
 });
 
+describe("The delete(value) method", () => {
+  test("should remove the value from the set", () => {
+    countedSet.add("A");
+    countedSet.add("A");
+    countedSet.delete("A");
+    expect(countedSet.getCount("A")).toBe(0);
+  });
+});
+
 describe("The size property", () => {
   test("should return the number of elements in the set (ignoring the counts)", () => {
     expect(new CountedSet([1, 2, 3, 3, 2, 2, 1]).size).toBe(3);

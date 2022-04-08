@@ -31,6 +31,9 @@ export class CountedSet<T> {
       this.setCount(value, Math.max(0, this.getCount(value) - 1));
     }
   }
+  delete(value: T) {
+    this.map.delete(value);
+  }
   entries(): IterableIterator<[T, number]> {
     return this.map.entries();
   }
