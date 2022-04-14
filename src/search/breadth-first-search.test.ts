@@ -59,9 +59,44 @@ describe("The find(start, testFn) method", () => {
     expect(BFS.find(start, isFalse)).toBe(null);
   });
   test("should return null if the graph has a cycle deeper down the graph and there is no node that satisfies the condition", () => {
-    let next = new Node("next", [target])
+    let next = new Node("next", [target]);
     start.neighbours = [next];
     target.neighbours = [next];
     expect(BFS.find(start, isFalse)).toBe(null);
+  });
+});
+
+describe("The trace(start, testFunction) method", () => {
+  test("should return an array containing the start node if the start node was the target", () => {
+    const trace = BFS.trace(start, isStart);
+    expect(trace.length).toBe(1);
+    expect(trace[0]).toBe(start);
+  });
+  test("should return an empty array if the target node can't be reached", () => {
+    const trace = BFS.trace(start, isTarget);
+    expect(trace).toEqual([]);
+  });
+  test("should return [start, target] if the target is a neighbour", () => {
+    let deadend = new Node("deadend");
+    start.neighbours = [deadend, target];
+    const trace = BFS.trace(start, isTarget);
+    expect(trace.length).toBe(2);
+    expect(trace[0].value).toBe(start.value);
+    expect(trace[1].value).toBe(target.value);
+  });
+  test("should return [start, neighbour, target] if the target is a neighbours neighbour", () => {
+    let deadend = new Node("deadend");
+    let neighbour = new Node("neighbour", [target]);
+    start.neighbours = [deadend, neighbour];
+    const trace = BFS.trace(start, isTarget);
+    expect(trace.length).toBe(3);
+  });
+  test("should return trace if there is a loop from target to start", () => {
+    target.neighbours = [start];
+    start.neighbours = [target];
+    let trace = BFS.trace(start, isTarget);
+    expect(trace[0]).toBe(start);
+    expect(trace[1]).toBe(target);
+    expect(trace.length).toBe(2);
   });
 });
